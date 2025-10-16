@@ -93,7 +93,7 @@ describe('Arithmetic', function () {
         });
     });
 
-// TODO: Challenge #1
+// Challenge #1: (Describe the specific challenge or remove this line if not needed)
  
 
     describe('Multiplication', function () {
@@ -188,7 +188,7 @@ describe('Arithmetic', function () {
                     done();
                 });
         });
-        it('divides by zero', function (done) {
+        it('divides a fraction by an integer', function (done) {
             request.get('/arithmetic?operation=divide&operand1=0.5&operand2=2')
                 .expect(200)
                 .end(function (err, res) {
@@ -201,6 +201,49 @@ describe('Arithmetic', function () {
                 .expect(200)
                 .end(function (err, res) {
                     expect(res.body).to.eql({ result: null });
+                    done();
+                });
+        });
+    });
+
+    describe('Power', function () {
+        it('raises a positive integer to a positive integer', function (done) {
+            request.get('/arithmetic?operation=power&operand1=2&operand2=5')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: 32 });
+                    done();
+                });
+        });
+        it('raises a number to the zero power', function (done) {
+            request.get('/arithmetic?operation=power&operand1=42&operand2=0')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: 1 });
+                    done();
+                });
+        });
+        it('raises a number to a negative power', function (done) {
+            request.get('/arithmetic?operation=power&operand1=2&operand2=-1')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: 0.5 });
+                    done();
+                });
+        });
+        it('raises a fractional base to an integer power', function (done) {
+            request.get('/arithmetic?operation=power&operand1=0.5&operand2=2')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: 0.25 });
+                    done();
+                });
+        });
+        it('supports exponential notation in operands', function (done) {
+            request.get('/arithmetic?operation=power&operand1=2e1&operand2=1')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: 20 });
                     done();
                 });
         });
