@@ -1,0 +1,5 @@
+//Make a function to convert text to snake case
+
+function toSnakeCase(str) {
+  return str.replace(/\s+/g, '_').toLowerCase();
+}
