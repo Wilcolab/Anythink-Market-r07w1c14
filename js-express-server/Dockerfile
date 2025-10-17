@@ -1,9 +1,9 @@
 FROM node:14
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
-COPY package*.json ./
+COPY package*.json /app
 RUN yarn install
+EXPOSE 8001
 
-EXPOSE 8000
-CMD ["yarn", "start"]
+CMD [ "yarn", "start" ]
